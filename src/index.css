@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { background: #F7F5F2; color: #2B2F3A; font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+}
+
+@layer utilities {
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.06s; }
+  .reveal-d2 { transition-delay: 0.13s; }
+  .reveal-d3 { transition-delay: 0.20s; }
+  .reveal-d4 { transition-delay: 0.27s; }
+  .reveal-d5 { transition-delay: 0.34s; }
+
+  /* ── Hero stagger ── */
+  .h0 { animation: up 0.8s cubic-bezier(.16,1,.3,1) 0.00s both; }
+  .h1 { animation: up 0.8s cubic-bezier(.16,1,.3,1) 0.12s both; }
+  .h2 { animation: up 0.8s cubic-bezier(.16,1,.3,1) 0.24s both; }
+  .h3 { animation: up 0.8s cubic-bezier(.16,1,.3,1) 0.36s both; }
+  .h4 { animation: up 0.8s cubic-bezier(.16,1,.3,1) 0.48s both; }
+
+  @keyframes up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Brand gradient text (crimson → gold) ── */
+  .text-brand-grad {
+    background: linear-gradient(135deg, #6A1022 0%, #B58D4F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Display font ── */
+  .font-display { font-family: 'Syne', system-ui, sans-serif; }
+
+  /* ── Dark navy surface ── */
+  .surface-dark { background: #2B2F3A; }
+
+  /* ── Crimson hover ring ── */
+  .ring-brand:hover {
+    box-shadow: 0 0 0 2px rgba(106,16,34,0.18), 0 8px 32px -4px rgba(43,47,58,0.13);
+    transform: translateY(-2px);
+  }
+
+  /* ── Grain overlay ── */
+  .grain { position: relative; }
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 1;
+  }
+
+  /* ── Crimson accent line ── */
+  .crimson-line { background: linear-gradient(90deg, #6A1022, #B58D4F); }
+}
