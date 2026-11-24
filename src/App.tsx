@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { ACHIEVEMENTS, EDUCATION, EXPERIENCE, LANGUAGES, PROFILE, PROJECTS, SKILLS } from './data/resumePortfolioData';
+import { useEffect, useState } from 'react';
+import { ACHIEVEMENTS, EDUCATION, EXPERIENCE, LANGUAGES, PROFILE, SKILLS } from './data/resumePortfolioData';
+import GrafanaDemoPanel from './components/GrafanaDemoPanel';
+import ProjectPreview from './components/ProjectPreview';
+import Label from './components/Label';
 
 /* ── Scroll reveal ── */
 function useReveal() {
@@ -14,74 +17,11 @@ function useReveal() {
 }
 
 const NAV_LINKS = [
-  { href: '#projects',   label: 'Projects'   },
   { href: '#experience', label: 'Experience' },
+  { href: '#projects',   label: 'Projects'   },
   { href: '#skills',     label: 'Skills'     },
   { href: '#education',  label: 'Education'  },
 ];
-
-/* ── iframe preview ── */
-function ProjectPreview({ url, title }: { url: string; title: string }) {
-  const [loaded, setLoaded] = useState(false);
-  const [errored, setErrored] = useState(false);
-
-  if (!url) return null;
-
-  return (
-    <div className="rounded-lg overflow-hidden border border-taupe-200">
-      <div className="flex items-center gap-1.5 bg-taupe-100 border-b border-taupe-200 px-3 py-2">
-        <span className="h-2 w-2 rounded-full bg-red-400/70" />
-        <span className="h-2 w-2 rounded-full bg-yellow-400/70" />
-        <span className="h-2 w-2 rounded-full bg-green-400/70" />
-        <span className="ml-2 flex-1 rounded bg-white border border-taupe-200 px-2 py-0.5 text-[10px] text-taupe-400 truncate font-mono">{url}</span>
-      </div>
-      <div className="relative h-48 bg-taupe-100">
-        {!loaded && !errored && (
-          <div className="absolute inset-0 flex items-center justify-center gap-2">
-            <svg className="h-4 w-4 animate-spin text-crimson-600" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
-            </svg>
-            <span className="text-[11px] text-taupe-400">Loading…</span>
-          </div>
-        )}
-        {errored && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
-            <span className="text-xl">🔒</span>
-            <p className="text-[11px] text-taupe-400">Preview unavailable</p>
-          </div>
-        )}
-        <iframe
-          src={url}
-          title={title}
-          loading="lazy"
-          onLoad={() => setLoaded(true)}
-          onError={() => setErrored(true)}
-          className="absolute inset-0 w-full h-full border-0"
-          style={{
-            transform: 'scale(0.5)',
-            transformOrigin: 'top left',
-            width: '200%',
-            height: '200%',
-            pointerEvents: 'none',
-            opacity: loaded ? 1 : 0,
-            transition: 'opacity 0.3s',
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
-/* ── Section label ── */
-function Label({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-4 mb-10">
-      <span className="font-mono text-[10px] font-medium tracking-[0.22em] uppercase text-taupe-400">{children}</span>
-      <div className="flex-1 h-px bg-taupe-200" />
-    </div>
-  );
-}
 
 export default function App() {
   useReveal();
@@ -130,24 +70,19 @@ export default function App() {
 
       {/* ── Hero ── */}
       <section id="top" className="relative overflow-hidden grain" style={{ background: '#2B2F3A' }}>
-        {/* grid lines */}
         <div className="absolute inset-0 bg-hero-lines" />
-        {/* crimson glow top-left */}
         <div className="absolute top-[-60px] left-[-40px] w-[500px] h-[380px] rounded-full opacity-25"
           style={{ background: 'radial-gradient(ellipse, #6A1022 0%, transparent 70%)', filter: 'blur(90px)' }} />
-        {/* gold glow bottom-right */}
         <div className="absolute bottom-[-40px] right-0 w-[380px] h-[280px] rounded-full opacity-20"
           style={{ background: 'radial-gradient(ellipse, #B58D4F 0%, transparent 70%)', filter: 'blur(70px)' }} />
 
         <div className="relative mx-auto max-w-5xl px-6 pt-24 pb-28 sm:pt-32 sm:pb-36">
 
-          {/* eyebrow */}
           <div className="h0 flex items-center gap-3 mb-8">
             <div className="h-px w-8 crimson-line" />
             <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-gold-400">Senior Frontend Developer · 5+ Years</span>
           </div>
 
-          {/* name */}
           <div className="h1 mb-6">
             <h1 className="font-display font-extrabold leading-[0.95] tracking-tight">
               <span className="block text-white" style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)' }}>
@@ -159,18 +94,18 @@ export default function App() {
             </h1>
           </div>
 
-          {/* summary */}
+          {/* shortened punchy summary */}
           <p className="h2 text-sm leading-7 max-w-xl mb-10" style={{ color: '#C1B8AD' }}>
-            {PROFILE.summary}
+            Senior Frontend Developer with 5+ years building production-grade apps across fintech, industrial automation, and data visualisation.
+            Delivered 45% load time gains, led 4-engineer teams, and secured platforms for 8,000+ users using React, Angular, TypeScript, and micro-frontend architectures.
           </p>
 
-          {/* stat pills */}
           <div className="h3 flex flex-wrap gap-3 mb-10">
             {[
               { n: '5+',      l: 'Years Experience' },
-              { n: '4',       l: 'Companies' },
+              { n: '4',       l: 'Companies'        },
               { n: 'React',   l: '& Angular Expert' },
-              { n: 'Chennai', l: 'Tamil Nadu' },
+              { n: 'Chennai', l: 'Tamil Nadu'        },
             ].map(({ n, l }) => (
               <div key={l} className="rounded-xl border px-5 py-3"
                 style={{ borderColor: 'rgba(193,184,173,0.15)', background: 'rgba(193,184,173,0.07)' }}>
@@ -180,7 +115,6 @@ export default function App() {
             ))}
           </div>
 
-          {/* contact */}
           <div className="h4 flex flex-wrap gap-2.5">
             <a href={`mailto:${PROFILE.email}`}
               className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold text-white transition-all hover:shadow-gold-glow"
@@ -198,10 +132,15 @@ export default function App() {
                 {label}
               </a>
             ))}
+            {/* availability badge */}
+            <span className="inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-medium"
+              style={{ borderColor: 'rgba(115,191,105,0.35)', background: 'rgba(115,191,105,0.08)', color: '#73bf69' }}>
+              <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+              Available · 90-day notice
+            </span>
           </div>
         </div>
 
-        {/* fade to canvas */}
         <div className="absolute bottom-0 left-0 right-0 h-20"
           style={{ background: 'linear-gradient(to top, #F7F5F2, transparent)' }} />
       </section>
@@ -237,15 +176,20 @@ export default function App() {
                   {i === 0 && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
                 </div>
 
-                <div className={`rounded-2xl border p-6 transition-all duration-300 ring-brand ${i === 0 ? 'grain shadow-dark-lift' : 'bg-white border-taupe-200 shadow-warm-sm'}`}
+                <div className={`rounded-2xl border transition-all duration-300 ring-brand ${i === 0 ? 'grain shadow-dark-lift' : 'bg-white border-taupe-200 shadow-warm-sm'}`}
                   style={i === 0 ? { background: '#2B2F3A', borderColor: 'rgba(193,184,173,0.12)' } : {}}>
 
-                  <div className="flex flex-wrap items-start justify-between gap-2 mb-1.5">
-                    <h3 className={`text-sm font-display font-bold leading-snug ${i === 0 ? 'text-white' : ''}`}
-                      style={i !== 0 ? { color: '#2B2F3A' } : {}}>
-                      {exp.role}
-                    </h3>
-                    <span className="rounded-full px-3 py-0.5 text-[10px] font-mono font-medium"
+                  <div className="flex flex-wrap items-start justify-between gap-2 px-6 pt-6 pb-0">
+                    <div>
+                      <h3 className={`text-sm font-display font-bold leading-snug ${i === 0 ? 'text-white' : ''}`}
+                        style={i !== 0 ? { color: '#2B2F3A' } : {}}>
+                        {exp.role}
+                      </h3>
+                      <p className={`text-xs font-semibold mt-1 ${i === 0 ? 'text-gold-300' : 'text-crimson-600'}`}>
+                        {exp.company} · {exp.location}
+                      </p>
+                    </div>
+                    <span className="rounded-full px-3 py-0.5 text-[10px] font-mono font-medium shrink-0"
                       style={i === 0
                         ? { background: 'rgba(181,141,79,0.20)', border: '1px solid rgba(181,141,79,0.40)', color: '#D4B87A' }
                         : { background: '#f0ede9', color: '#7d7670' }}>
@@ -253,49 +197,117 @@ export default function App() {
                     </span>
                   </div>
 
-                  <p className={`text-xs font-semibold mb-4 ${i === 0 ? 'text-gold-300' : 'text-crimson-600'}`}>
-                    {exp.company} · {exp.location}
-                  </p>
+                  <div className={`px-6 pt-5 pb-6 ${exp.demo ? 'md:grid md:grid-cols-2' : ''}`}>
 
-                  <ul className="space-y-2">
-                    {exp.bullets.map(b => (
-                      <li key={b} className="flex gap-2.5 text-xs leading-relaxed"
-                        style={{ color: i === 0 ? '#E8E4DF' : '#7d7670' }}>
-                        <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${i === 0 ? 'bg-gold-400' : 'bg-crimson-600'}`} />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* inline demo */}
-                  {exp.demo && (
-                    <div className="mt-5 pt-5 border-t" style={{ borderColor: i === 0 ? 'rgba(193,184,173,0.12)' : '#f0ede9' }}>
-                      <p className="font-mono text-[10px] font-medium tracking-[0.18em] uppercase mb-3"
-                        style={{ color: i === 0 ? '#B58D4F' : '#6A1022' }}>Demo</p>
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {exp.demo.tech.map(t => (
-                          <span key={t} className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                            style={i === 0
-                              ? { background: 'rgba(181,141,79,0.15)', border: '1px solid rgba(181,141,79,0.28)', color: '#d4b87a' }
-                              : { background: '#f0ede9', border: '1px solid #e2ddd7', color: '#5c5650' }}>{t}</span>
+                    <div className={exp.demo ? 'md:pr-6 md:border-r' : ''}
+                      style={exp.demo ? { borderColor: i === 0 ? 'rgba(193,184,173,0.12)' : '#f0ede9' } : {}}>
+                      <ul className="space-y-2.5">
+                        {exp.bullets.map(b => (
+                          <li key={b} className="flex gap-2.5 text-xs leading-relaxed"
+                            style={{ color: i === 0 ? '#E8E4DF' : '#7d7670' }}>
+                            <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${i === 0 ? 'bg-gold-400' : 'bg-crimson-600'}`} />
+                            {b}
+                          </li>
                         ))}
-                      </div>
-                      <ProjectPreview url={exp.demo.liveUrl} title={exp.demo.name} />
-                      <div className="flex items-center gap-2.5 mt-3 text-xs font-semibold">
-                        <a href={exp.demo.liveUrl} target="_blank" rel="noreferrer"
-                          className="inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-white transition-all hover:shadow-crimson-glow"
-                          style={{ background: '#6A1022' }}>Live Preview ↗</a>
-                        <a href={exp.demo.repoUrl} target="_blank" rel="noreferrer"
-                          className="inline-flex items-center gap-1 rounded-xl border px-3.5 py-2 transition-all"
-                          style={i === 0
-                            ? { borderColor: 'rgba(193,184,173,0.20)', color: '#C1B8AD' }
-                            : { borderColor: '#e2ddd7', color: '#5c5650' }}>Source ↗</a>
-                      </div>
+                      </ul>
                     </div>
-                  )}
+
+                    {exp.demo && (
+                      <div className="md:pl-6 mt-5 md:mt-0 pt-5 md:pt-0 border-t md:border-t-0"
+                        style={{ borderColor: i === 0 ? 'rgba(193,184,173,0.12)' : '#f0ede9' }}>
+                        <div className="flex items-center justify-between mb-3">
+                          <p className="font-mono text-[10px] font-medium tracking-[0.18em] uppercase"
+                            style={{ color: i === 0 ? '#B58D4F' : '#6A1022' }}>Demo</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {exp.demo.tech.map(t => (
+                              <span key={t} className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                                style={i === 0
+                                  ? { background: 'rgba(181,141,79,0.15)', border: '1px solid rgba(181,141,79,0.28)', color: '#d4b87a' }
+                                  : { background: '#f0ede9', border: '1px solid #e2ddd7', color: '#5c5650' }}>{t}</span>
+                            ))}
+                          </div>
+                        </div>
+                        {exp.demo.name === 'grafana-industrial-plugins-demo'
+                          ? <GrafanaDemoPanel />
+                          : <ProjectPreview url={exp.demo.liveUrl} title={exp.demo.name} />}
+                        <div className="flex items-center gap-2.5 mt-3 text-xs font-semibold">
+                          {exp.demo.liveUrl && (
+                            <a href={exp.demo.liveUrl} target="_blank" rel="noreferrer"
+                              className="inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-white transition-all hover:shadow-crimson-glow"
+                              style={{ background: '#6A1022' }}>
+                              {exp.demo.name === 'grafana-industrial-plugins-demo' ? 'Open in Grafana ↗' : 'Live Preview ↗'}
+                            </a>
+                          )}
+                          <a href={exp.demo.repoUrl} target="_blank" rel="noreferrer"
+                            className="inline-flex items-center gap-1 rounded-xl border px-3.5 py-2 transition-all"
+                            style={i === 0
+                              ? { borderColor: 'rgba(193,184,173,0.20)', color: '#C1B8AD' }
+                              : { borderColor: '#e2ddd7', color: '#5c5650' }}>Source ↗</a>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── Projects ── */}
+        <section id="projects" className="reveal">
+          <Label>Projects</Label>
+          <div className="grid gap-6 sm:grid-cols-2">
+
+            {/* AutoMall Pro */}
+            <article className="group flex flex-col rounded-2xl border border-taupe-200 bg-white shadow-warm-sm transition-all duration-300 ring-brand">
+              <div className="relative overflow-hidden rounded-t-2xl grain px-5 pt-5 pb-4" style={{ background: '#2B2F3A' }}>
+                <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-20"
+                  style={{ background: 'radial-gradient(ellipse, #6A1022, transparent)', filter: 'blur(40px)' }} />
+                <div className="relative">
+                  <div className="flex flex-wrap gap-1.5 mb-2.5">
+                    {['React 18', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'].map(s => (
+                      <span key={s} className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold"
+                        style={{ background: 'rgba(181,141,79,0.15)', border: '1px solid rgba(181,141,79,0.28)', color: '#d4b87a' }}>{s}</span>
+                    ))}
+                  </div>
+                  <h3 className="text-sm font-display font-bold text-white leading-snug">AutoMall Pro — Vehicle Auction &amp; Lifecycle Workbench</h3>
+                </div>
+              </div>
+              <div className="px-5 pt-4">
+                <ProjectPreview url="https://sganesan03.github.io/automall-pro-auction-workbench/" title="AutoMall Pro" />
+              </div>
+              <div className="flex flex-col flex-1 px-5 py-4">
+                <p className="text-xs text-taupe-400 leading-relaxed mb-3 italic">
+                  Transaction-oriented bidding platform with post-auction vehicle lifecycle governance for NBFC institutions and RTO admins.
+                </p>
+                <ul className="space-y-2 flex-1 mb-4">
+                  {[
+                    'Persona-based RBAC (Bidder, Seller/NBFC, Ops Admin, RTO Admin) with field-level masking per role.',
+                    'Optimistic bid state updates with automatic rollback on simulated payment gateway failures.',
+                    'Debounced multi-facet filtering and real-time countdown state transitions across auction lots.',
+                  ].map(b => (
+                    <li key={b} className="flex gap-2.5 text-xs text-taupe-500 leading-relaxed">
+                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-crimson-600" />{b}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center gap-2.5 border-t border-taupe-100 pt-4 text-xs font-semibold">
+                  <a href="https://sganesan03.github.io/automall-pro-auction-workbench/" target="_blank" rel="noreferrer"
+                    className="inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-white transition-all hover:shadow-crimson-glow"
+                    style={{ background: '#6A1022' }}>Live Preview ↗</a>
+                  <a href="https://github.com/sganesan03/automall-pro-auction-workbench" target="_blank" rel="noreferrer"
+                    className="inline-flex items-center gap-1 rounded-xl border border-taupe-200 px-3.5 py-2 text-taupe-500 transition-all hover:border-taupe-400 hover:text-navy-800">Source ↗</a>
+                </div>
+              </div>
+            </article>
+
+            {/* Coming soon */}
+            <article className="flex flex-col rounded-2xl border border-dashed border-taupe-300 bg-taupe-50 shadow-warm-sm items-center justify-center px-8 py-14 gap-3 text-center">
+              <span className="text-2xl">🚧</span>
+              <p className="font-display font-bold text-sm" style={{ color: '#2B2F3A' }}>Next Project</p>
+              <p className="text-xs text-taupe-400 leading-relaxed">Currently in progress — will be showcased here soon.</p>
+            </article>
+
           </div>
         </section>
 
@@ -339,57 +351,6 @@ export default function App() {
                 <p className="mt-2 font-mono text-[11px]" style={{ color: i === 0 ? '#B58D4F' : '#a09890' }}>{edu.period}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* ── Projects ── */}
-        <section id="projects" className="reveal">
-          <Label>Projects</Label>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {PROJECTS.map((proj, i) => (
-              <article key={proj.id}
-                className="group flex flex-col rounded-2xl border border-taupe-200 bg-white shadow-warm-sm transition-all duration-300 ring-brand">
-                <div className="relative overflow-hidden rounded-t-2xl grain px-5 pt-5 pb-4" style={{ background: '#2B2F3A' }}>
-                  <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-20"
-                    style={{ background: 'radial-gradient(ellipse, #6A1022, transparent)', filter: 'blur(40px)' }} />
-                  <div className="relative">
-                    <div className="flex flex-wrap gap-1.5 mb-2.5">
-                      {proj.stack.map(s => (
-                        <span key={s} className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold"
-                          style={{ background: 'rgba(181,141,79,0.15)', border: '1px solid rgba(181,141,79,0.28)', color: '#d4b87a' }}>{s}</span>
-                      ))}
-                    </div>
-                    <h3 className="text-sm font-display font-bold text-white leading-snug">{proj.title}</h3>
-                  </div>
-                </div>
-                <div className="px-5 pt-4">
-                  <ProjectPreview url={proj.liveUrl ?? ''} title={proj.title} />
-                </div>
-                <div className="flex flex-col flex-1 px-5 py-4">
-                  <p className="text-xs text-taupe-400 leading-relaxed mb-3 italic">{proj.context}</p>
-                  <ul className="space-y-2 flex-1 mb-4">
-                    {proj.bullets.map(b => (
-                      <li key={b} className="flex gap-2.5 text-xs text-taupe-500 leading-relaxed">
-                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-crimson-600" />{b}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex items-center gap-2.5 border-t border-taupe-100 pt-4 text-xs font-semibold">
-                    <a href={proj.liveUrl} target="_blank" rel="noreferrer"
-                      className="inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-white transition-all hover:shadow-crimson-glow"
-                      style={{ background: '#6A1022' }}>Live Preview ↗</a>
-                    <a href={proj.repoUrl} target="_blank" rel="noreferrer"
-                      className="inline-flex items-center gap-1 rounded-xl border border-taupe-200 px-3.5 py-2 text-taupe-500 transition-all hover:border-taupe-400 hover:text-navy-800">Source ↗</a>
-                  </div>
-                </div>
-              </article>
-            ))}
-            {/* Coming soon placeholder */}
-            <article className="flex flex-col rounded-2xl border border-dashed border-taupe-300 bg-taupe-50 shadow-warm-sm items-center justify-center px-8 py-14 gap-3 text-center">
-              <span className="text-2xl">🚧</span>
-              <p className="font-display font-bold text-sm" style={{ color: '#2B2F3A' }}>Project Initiated</p>
-              <p className="text-xs text-taupe-400 leading-relaxed">New project currently in progress — will be showcased here soon.</p>
-            </article>
           </div>
         </section>
 

@@ -53,22 +53,7 @@ export const ACHIEVEMENTS = [
   { metric: '60%',    label: 'UI duplication reduced',   context: 'via shared component library' },
 ];
 
-export const PROJECTS: Project[] = [
-  {
-    id: 'automall-pro',
-    title: 'AutoMall Pro — Vehicle Auction & Lifecycle Workbench',
-    stack: ['React 18', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'],
-    context:
-      'Transaction-oriented bidding platform with post-auction vehicle lifecycle governance for NBFC institutions and RTO admins.',
-    bullets: [
-      'Implemented persona-based RBAC (Bidder, Seller/NBFC, Ops Admin, RTO Admin) with field-level masking per role.',
-      'Built optimistic bid state updates with automatic rollback on simulated payment gateway failures.',
-      'Engineered debounced multi-facet filtering and real-time countdown state transitions across auction lots.',
-    ],
-    liveUrl: 'https://sganesan03.github.io/automall-pro-auction-workbench/',
-    repoUrl: 'https://github.com/sganesan03/automall-pro-auction-workbench',
-  },
-];
+export const PROJECTS: Project[] = [];
 
 export const EXPERIENCE: Experience[] = [
   {
@@ -83,6 +68,12 @@ export const EXPERIENCE: Experience[] = [
       'Secured 5 financial modules serving 8,000+ users with JWT-based auth and RBAC, achieving zero auth-related incidents post-launch.',
       'Mentored 3 junior developers through structured peer reviews and Jest unit testing practices, raising team code coverage from 42% to 78%.',
     ],
+    demo: {
+      name: 'automall-pro-auction-workbench',
+      tech: ['React 18', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'],
+      liveUrl: 'https://sganesan03.github.io/automall-pro-auction-workbench/',
+      repoUrl: 'https://github.com/sganesan03/automall-pro-auction-workbench',
+    },
   },
   {
     role: 'Software Engineer (Angular & React Web Development)',
@@ -97,7 +88,7 @@ export const EXPERIENCE: Experience[] = [
     demo: {
       name: 'ftds-enterprise-studio-v3',
       tech: ['Angular', 'TypeScript', 'RxJS', 'IEC 61131-3'],
-      liveUrl: 'https://sganesan03.github.io/ftds-enterprise-studio-v3/workspace/routine/rtn-ld-main',
+      liveUrl: 'https://sganesan03.github.io/ftds-enterprise-studio-v3/',
       repoUrl: 'https://github.com/SGanesan03/ftds-enterprise-studio-v3',
     },
   },
@@ -120,14 +111,20 @@ export const EXPERIENCE: Experience[] = [
     },
   },
   {
-    role: 'Associate Software Engineer (React & Grafana)',
+    role: 'Frontend Engineer (React & Grafana)',
     company: 'Utthunga Technologies',
     location: 'Bangalore',
     period: 'Aug 2021 – Dec 2022',
     bullets: [
-      'Engineered 5 custom Grafana plugins using React, TypeScript, and the Grafana Plugin SDK, deployed across 3 client environments monitoring live industrial data.',
-      'Optimised plugin rendering performance by 40% and built WCAG-accessible data visualisations integrated with 8+ third-party REST APIs.',
+      'Engineered custom Grafana plugins using React, TypeScript, and the Grafana Plugin SDK, deployed in client environments monitoring live industrial data.',
+      'Optimised plugin rendering performance by 40% and built WCAG-accessible data visualisations integrated with third-party REST APIs.',
     ],
+    demo: {
+      name: 'grafana-industrial-plugins-demo',
+      tech: ['Grafana', 'React', 'TypeScript', 'Grafana Plugin SDK'],
+      liveUrl: 'https://play.grafana.org/d/3SWXxreWk/grafana-dashboard?from=now-1h&to=now&timezone=browser',
+      repoUrl: 'https://github.com/SGanesan03',
+    },
   },
 ];
 
