@@ -30,6 +30,12 @@ export interface Education {
 
 export interface Language {
   name: string;
+  proficiency: 'Native' | 'Professional' | 'Conversational';
+}
+
+export interface Tool {
+  name: string;
+  category: string;
 }
 
 
@@ -41,7 +47,11 @@ export const PROFILE = {
   email: 'selvaraj.ganesan.offz@gmail.com',
   linkedin: 'https://www.linkedin.com/in/selvaraj-ganesan-frontend-developer',
   github: 'https://github.com/sganesan03',
+  resumeUrl: 'https://sganesan03.github.io/selvaraj-ganesan-minimal-portfolio/Selvaraj_Ganesan_Resume.pdf',
   yearsExp: '5+',
+  availability: 'Available',
+  noticePeriod: '90-day notice',
+  openToRoles: ['Senior Frontend Engineer', 'Frontend Tech Lead', 'React Architect'],
   summary:
     'Senior Frontend Developer with 5+ years of experience delivering production-grade web applications across fintech, industrial automation, and data visualisation domains. Achieved 45% load time improvements, led teams of 4+ engineers, and secured financial platforms serving 8,000+ users. Deep expertise in React, Angular, TypeScript, micro-frontend architectures (Single-SPA), and RBAC-driven security workflows.',
 };
@@ -53,7 +63,60 @@ export const ACHIEVEMENTS = [
   { metric: '60%',    label: 'UI duplication reduced',   context: 'via shared component library' },
 ];
 
-export const PROJECTS: Project[] = [];
+export const PROJECTS: Project[] = [
+  {
+    id: 'automall-pro',
+    title: 'AutoMall Pro — Vehicle Auction & Lifecycle Workbench',
+    stack: ['React 18', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'],
+    context: 'Transaction-oriented bidding platform with post-auction vehicle lifecycle governance for NBFC institutions and RTO admins.',
+    bullets: [
+      'Persona-based RBAC (Bidder, Seller/NBFC, Ops Admin, RTO Admin) with field-level masking per role.',
+      'Optimistic bid state updates with automatic rollback on simulated payment gateway failures.',
+      'Debounced multi-facet filtering and real-time countdown state transitions across auction lots.',
+    ],
+    liveUrl: 'https://sganesan03.github.io/automall-pro-auction-workbench/',
+    repoUrl: 'https://github.com/sganesan03/automall-pro-auction-workbench',
+  },
+  {
+    id: 'ftds-enterprise-studio',
+    title: 'FTDS Enterprise Studio v3 — Industrial Micro-Frontend IDE',
+    stack: ['Angular', 'TypeScript', 'RxJS', 'Single-SPA', 'IEC 61131-3'],
+    context: 'Micro-frontend engineering studio for configuring and deploying IEC 61131-3 logic to industrial PLC controllers.',
+    bullets: [
+      'Modular micro-frontend shell using Single-SPA and Lerna across 3 independent product teams.',
+      'Real-time PLC connector integration with live device state synchronisation via RxJS streams.',
+      'Reduced inter-team deployment conflicts by 50% through isolated module federation.',
+    ],
+    liveUrl: 'https://sganesan03.github.io/ftds-enterprise-studio-v3/',
+    repoUrl: 'https://github.com/SGanesan03/ftds-enterprise-studio-v3',
+  },
+  {
+    id: 'empire-5700e',
+    title: 'Empire 5700E Hybrid Studio — Oil Flow Device Dashboard',
+    stack: ['Angular', 'TypeScript', 'RxJS', 'Angular Material'],
+    context: 'Enterprise dashboard for real-time monitoring and configuration of industrial oil flow devices supporting 200+ field operators.',
+    bullets: [
+      'Built 6 enterprise Angular + RxJS modules with live industrial device connectivity.',
+      'Shared Angular component library used across 4 internal products, reducing per-feature dev time by 25%.',
+      'REST API contracts for 3 device integrations ensuring sub-200ms response SLAs.',
+    ],
+    liveUrl: 'https://sganesan03.github.io/empire-5700e-hybrid-studio/#/overview',
+    repoUrl: 'https://github.com/SGanesan03/empire-5700e-hybrid-studio',
+  },
+  {
+    id: 'grafana-plugins',
+    title: 'Grafana Industrial Plugins — Custom Monitoring Panels',
+    stack: ['Grafana', 'React', 'TypeScript', 'Grafana Plugin SDK'],
+    context: 'Custom Grafana plugins deployed in client environments for live industrial data monitoring with WCAG-accessible visualisations.',
+    bullets: [
+      'Engineered custom panel and data source plugins using the Grafana Plugin SDK.',
+      'Optimised plugin rendering performance by 40% through canvas-based chart rendering.',
+      'WCAG-accessible data visualisations integrated with third-party industrial REST APIs.',
+    ],
+    liveUrl: 'https://play.grafana.org/d/3SWXxreWk/grafana-dashboard?from=now-1h&to=now&timezone=browser',
+    repoUrl: 'https://github.com/SGanesan03',
+  },
+];
 
 export const EXPERIENCE: Experience[] = [
   {
@@ -169,6 +232,17 @@ export const EDUCATION: Education[] = [
 ];
 
 export const LANGUAGES: Language[] = [
-  { name: 'English' },
-  { name: 'Tamil' },
+  { name: 'English', proficiency: 'Professional' },
+  { name: 'Tamil',   proficiency: 'Native'       },
+];
+
+export const TOOLS: Tool[] = [
+  { name: 'Single-SPA',    category: 'Micro-frontend' },
+  { name: 'Lerna',         category: 'Monorepo'       },
+  { name: 'Grafana',       category: 'Observability'  },
+  { name: 'Redux Toolkit', category: 'State'          },
+  { name: 'Jenkins',       category: 'CI/CD'          },
+  { name: 'Vite',          category: 'Build'          },
+  { name: 'Webpack',       category: 'Build'          },
+  { name: 'Jest',          category: 'Testing'        },
 ];

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ACHIEVEMENTS, EDUCATION, EXPERIENCE, LANGUAGES, PROFILE, SKILLS } from './data/resumePortfolioData';
+import { ACHIEVEMENTS, EDUCATION, EXPERIENCE, LANGUAGES, PROFILE, PROJECTS, SKILLS, TOOLS } from './data/resumePortfolioData';
 import GrafanaDemoPanel from './components/GrafanaDemoPanel';
 import ProjectPreview from './components/ProjectPreview';
 import Label from './components/Label';
@@ -132,11 +132,17 @@ export default function App() {
                 {label}
               </a>
             ))}
-            {/* availability badge */}
+            {PROFILE.resumeUrl && (
+              <a href={PROFILE.resumeUrl} target="_blank" rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-medium transition-all hover:border-gold-500 hover:text-white"
+                style={{ borderColor: 'rgba(193,184,173,0.18)', color: '#C1B8AD' }}>
+                ↓ Resume
+              </a>
+            )}
             <span className="inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-medium"
               style={{ borderColor: 'rgba(115,191,105,0.35)', background: 'rgba(115,191,105,0.08)', color: '#73bf69' }}>
               <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-              Available · 90-day notice
+              {PROFILE.availability} · {PROFILE.noticePeriod}
             </span>
           </div>
         </div>
@@ -257,57 +263,50 @@ export default function App() {
         <section id="projects" className="reveal">
           <Label>Projects</Label>
           <div className="grid gap-6 sm:grid-cols-2">
-
-            {/* AutoMall Pro */}
-            <article className="group flex flex-col rounded-2xl border border-taupe-200 bg-white shadow-warm-sm transition-all duration-300 ring-brand">
-              <div className="relative overflow-hidden rounded-t-2xl grain px-5 pt-5 pb-4" style={{ background: '#2B2F3A' }}>
-                <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-20"
-                  style={{ background: 'radial-gradient(ellipse, #6A1022, transparent)', filter: 'blur(40px)' }} />
-                <div className="relative">
-                  <div className="flex flex-wrap gap-1.5 mb-2.5">
-                    {['React 18', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'].map(s => (
-                      <span key={s} className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold"
-                        style={{ background: 'rgba(181,141,79,0.15)', border: '1px solid rgba(181,141,79,0.28)', color: '#d4b87a' }}>{s}</span>
-                    ))}
+            {PROJECTS.map((project, i) => (
+              <article key={project.id} className="group flex flex-col rounded-2xl border border-taupe-200 bg-white shadow-warm-sm transition-all duration-300 ring-brand">
+                <div className="relative overflow-hidden rounded-t-2xl grain px-5 pt-5 pb-4" style={{ background: '#2B2F3A' }}>
+                  <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-20"
+                    style={{ background: 'radial-gradient(ellipse, #6A1022, transparent)', filter: 'blur(40px)' }} />
+                  <div className="relative">
+                    <div className="flex flex-wrap gap-1.5 mb-2.5">
+                      {project.stack.map(s => (
+                        <span key={s} className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold"
+                          style={{ background: 'rgba(181,141,79,0.15)', border: '1px solid rgba(181,141,79,0.28)', color: '#d4b87a' }}>{s}</span>
+                      ))}
+                    </div>
+                    <h3 className="text-sm font-display font-bold text-white leading-snug">{project.title}</h3>
                   </div>
-                  <h3 className="text-sm font-display font-bold text-white leading-snug">AutoMall Pro — Vehicle Auction &amp; Lifecycle Workbench</h3>
                 </div>
-              </div>
-              <div className="px-5 pt-4">
-                <ProjectPreview url="https://sganesan03.github.io/automall-pro-auction-workbench/" title="AutoMall Pro" />
-              </div>
-              <div className="flex flex-col flex-1 px-5 py-4">
-                <p className="text-xs text-taupe-400 leading-relaxed mb-3 italic">
-                  Transaction-oriented bidding platform with post-auction vehicle lifecycle governance for NBFC institutions and RTO admins.
-                </p>
-                <ul className="space-y-2 flex-1 mb-4">
-                  {[
-                    'Persona-based RBAC (Bidder, Seller/NBFC, Ops Admin, RTO Admin) with field-level masking per role.',
-                    'Optimistic bid state updates with automatic rollback on simulated payment gateway failures.',
-                    'Debounced multi-facet filtering and real-time countdown state transitions across auction lots.',
-                  ].map(b => (
-                    <li key={b} className="flex gap-2.5 text-xs text-taupe-500 leading-relaxed">
-                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-crimson-600" />{b}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex items-center gap-2.5 border-t border-taupe-100 pt-4 text-xs font-semibold">
-                  <a href="https://sganesan03.github.io/automall-pro-auction-workbench/" target="_blank" rel="noreferrer"
-                    className="inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-white transition-all hover:shadow-crimson-glow"
-                    style={{ background: '#6A1022' }}>Live Preview ↗</a>
-                  <a href="https://github.com/sganesan03/automall-pro-auction-workbench" target="_blank" rel="noreferrer"
-                    className="inline-flex items-center gap-1 rounded-xl border border-taupe-200 px-3.5 py-2 text-taupe-500 transition-all hover:border-taupe-400 hover:text-navy-800">Source ↗</a>
+                {project.id === 'grafana-plugins'
+                  ? <div className="px-5 pt-4"><GrafanaDemoPanel /></div>
+                  : project.liveUrl && <div className="px-5 pt-4"><ProjectPreview url={project.liveUrl} title={project.title} /></div>
+                }
+                <div className="flex flex-col flex-1 px-5 py-4">
+                  <p className="text-xs text-taupe-400 leading-relaxed mb-3 italic">{project.context}</p>
+                  <ul className="space-y-2 flex-1 mb-4">
+                    {project.bullets.map(b => (
+                      <li key={b} className="flex gap-2.5 text-xs text-taupe-500 leading-relaxed">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-crimson-600" />{b}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex items-center gap-2.5 border-t border-taupe-100 pt-4 text-xs font-semibold">
+                    {project.liveUrl && (
+                      <a href={project.liveUrl} target="_blank" rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-white transition-all hover:shadow-crimson-glow"
+                        style={{ background: '#6A1022' }}>
+                        {project.id === 'grafana-plugins' ? 'Open in Grafana ↗' : 'Live Preview ↗'}
+                      </a>
+                    )}
+                    {project.repoUrl && (
+                      <a href={project.repoUrl} target="_blank" rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-xl border border-taupe-200 px-3.5 py-2 text-taupe-500 transition-all hover:border-taupe-400 hover:text-navy-800">Source ↗</a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
-
-            {/* Coming soon */}
-            <article className="flex flex-col rounded-2xl border border-dashed border-taupe-300 bg-taupe-50 shadow-warm-sm items-center justify-center px-8 py-14 gap-3 text-center">
-              <span className="text-2xl">🚧</span>
-              <p className="font-display font-bold text-sm" style={{ color: '#2B2F3A' }}>Next Project</p>
-              <p className="text-xs text-taupe-400 leading-relaxed">Currently in progress — will be showcased here soon.</p>
-            </article>
-
+              </article>
+            ))}
           </div>
         </section>
 
@@ -354,15 +353,43 @@ export default function App() {
           </div>
         </section>
 
+        {/* ── Tools Spotlight ── */}
+        <section className="reveal">
+          <Label>Key Tools & Specialisations</Label>
+          <div className="flex flex-wrap gap-3">
+            {TOOLS.map(tool => (
+              <div key={tool.name} className="rounded-2xl border border-taupe-200 bg-white shadow-warm-sm px-4 py-3 flex flex-col gap-0.5 ring-brand transition-all duration-300">
+                <span className="font-display font-bold text-sm" style={{ color: '#2B2F3A' }}>{tool.name}</span>
+                <span className="font-mono text-[10px] tracking-wide uppercase" style={{ color: '#6A1022' }}>{tool.category}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Open To ── */}
+        <section className="reveal">
+          <Label>Open To</Label>
+          <div className="flex flex-wrap gap-3">
+            {PROFILE.openToRoles.map(role => (
+              <div key={role} className="grain rounded-2xl border px-5 py-3 shadow-dark-lift flex items-center gap-2.5"
+                style={{ background: '#2B2F3A', borderColor: 'rgba(193,184,173,0.12)' }}>
+                <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+                <span className="font-display font-semibold text-white text-sm">{role}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ── Languages ── */}
         <section id="languages" className="reveal">
           <Label>Languages</Label>
           <div className="flex flex-wrap gap-3">
             {LANGUAGES.map(lang => (
-              <div key={lang.name} className="grain rounded-2xl border px-6 py-3.5 shadow-dark-lift flex items-center gap-2.5"
+              <div key={lang.name} className="grain rounded-2xl border px-6 py-3.5 shadow-dark-lift flex items-center gap-3"
                 style={{ background: '#2B2F3A', borderColor: 'rgba(193,184,173,0.12)' }}>
                 <span className="h-2 w-2 rounded-full bg-gold-500" />
                 <span className="font-display font-bold text-white text-sm">{lang.name}</span>
+                <span className="font-mono text-[10px] tracking-wide uppercase" style={{ color: '#B58D4F' }}>{lang.proficiency}</span>
               </div>
             ))}
           </div>

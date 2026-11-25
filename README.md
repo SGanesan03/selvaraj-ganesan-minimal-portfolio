@@ -82,13 +82,22 @@ base: '/selvaraj-ganesan-minimal-portfolio/'
 
 ## Content Management
 
-All portfolio content (profile, experience, skills, education) lives in a single file:
+All portfolio content lives in a single file — no other files need to be touched:
 
 ```
 src/data/resumePortfolioData.ts
 ```
 
-Update that file to reflect any resume changes — no other files need to be touched.
+| Export | Description |
+|---|---|
+| `PROFILE` | Name, role, contact, resumeUrl, availability, noticePeriod, openToRoles |
+| `ACHIEVEMENTS` | Key impact metrics shown in the hero strip |
+| `EXPERIENCE` | Work history with inline demo links |
+| `PROJECTS` | Standalone project showcase cards |
+| `SKILLS` | Grouped technical skill tags |
+| `TOOLS` | Key tools & specialisations spotlight |
+| `EDUCATION` | Degree entries |
+| `LANGUAGES` | Spoken languages with proficiency level |
 
 ---
 
