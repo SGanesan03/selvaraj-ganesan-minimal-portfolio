@@ -65,56 +65,16 @@ export const ACHIEVEMENTS = [
 
 export const PROJECTS: Project[] = [
   {
-    id: 'automall-pro',
-    title: 'AutoMall Pro — Vehicle Auction & Lifecycle Workbench',
-    stack: ['React 18', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'],
-    context: 'Transaction-oriented bidding platform with post-auction vehicle lifecycle governance for NBFC institutions and RTO admins.',
+    id: 'justtouch-ui',
+    title: 'JustTouch UI — React Design System & Component Explorer',
+    stack: ['React 18', 'TypeScript', 'Vite', 'Tailwind CSS', 'Lucide Icons', 'Design Systems', 'Component Libraries'],
+    context: 'Built a production-ready React UI design system with 50+ interactive components, live viewport previews, dark mode, and TSX code copy — powered by Vite, TypeScript, and Tailwind CSS.',
     bullets: [
-      'Persona-based RBAC (Bidder, Seller/NBFC, Ops Admin, RTO Admin) with field-level masking per role.',
-      'Optimistic bid state updates with automatic rollback on simulated payment gateway failures.',
-      'Debounced multi-facet filtering and real-time countdown state transitions across auction lots.',
+      '8 documentation categories covering 50+ UI components across base, application, and marketing layers.',
+      'Live Desktop/Tablet/Mobile viewport previews, Light/Dark mode toggling, and one-click TSX code copy per component.',
+      'Strict lib/app boundary, semantic design tokens, and alias-free module resolution for production-grade maintainability.',
     ],
-    liveUrl: 'https://sganesan03.github.io/automall-pro-auction-workbench/',
-    repoUrl: 'https://github.com/sganesan03/automall-pro-auction-workbench',
-  },
-  {
-    id: 'ftds-enterprise-studio',
-    title: 'FTDS Enterprise Studio v3 — Industrial Micro-Frontend IDE',
-    stack: ['Angular', 'TypeScript', 'RxJS', 'Single-SPA', 'IEC 61131-3'],
-    context: 'Micro-frontend engineering studio for configuring and deploying IEC 61131-3 logic to industrial PLC controllers.',
-    bullets: [
-      'Modular micro-frontend shell using Single-SPA and Lerna across 3 independent product teams.',
-      'Real-time PLC connector integration with live device state synchronisation via RxJS streams.',
-      'Reduced inter-team deployment conflicts by 50% through isolated module federation.',
-    ],
-    liveUrl: 'https://sganesan03.github.io/ftds-enterprise-studio-v3/',
-    repoUrl: 'https://github.com/SGanesan03/ftds-enterprise-studio-v3',
-  },
-  {
-    id: 'empire-5700e',
-    title: 'Empire 5700E Hybrid Studio — Oil Flow Device Dashboard',
-    stack: ['Angular', 'TypeScript', 'RxJS', 'Angular Material'],
-    context: 'Enterprise dashboard for real-time monitoring and configuration of industrial oil flow devices supporting 200+ field operators.',
-    bullets: [
-      'Built 6 enterprise Angular + RxJS modules with live industrial device connectivity.',
-      'Shared Angular component library used across 4 internal products, reducing per-feature dev time by 25%.',
-      'REST API contracts for 3 device integrations ensuring sub-200ms response SLAs.',
-    ],
-    liveUrl: 'https://sganesan03.github.io/empire-5700e-hybrid-studio/#/overview',
-    repoUrl: 'https://github.com/SGanesan03/empire-5700e-hybrid-studio',
-  },
-  {
-    id: 'grafana-plugins',
-    title: 'Grafana Industrial Plugins — Custom Monitoring Panels',
-    stack: ['Grafana', 'React', 'TypeScript', 'Grafana Plugin SDK'],
-    context: 'Custom Grafana plugins deployed in client environments for live industrial data monitoring with WCAG-accessible visualisations.',
-    bullets: [
-      'Engineered custom panel and data source plugins using the Grafana Plugin SDK.',
-      'Optimised plugin rendering performance by 40% through canvas-based chart rendering.',
-      'WCAG-accessible data visualisations integrated with third-party industrial REST APIs.',
-    ],
-    liveUrl: 'https://play.grafana.org/d/3SWXxreWk/grafana-dashboard?from=now-1h&to=now&timezone=browser',
-    repoUrl: 'https://github.com/SGanesan03',
+    liveUrl: 'https://sganesan03.github.io/justtouch-ui-design-system/',
   },
 ];
 
